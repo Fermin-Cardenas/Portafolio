@@ -231,6 +231,20 @@
             color: var(--accent);
             margin-bottom: 10px;
             font-weight: normal;
+            overflow: hidden;
+            border-right: 3px solid var(--accent);
+            white-space: nowrap;
+            animation: typing 2s steps(20) 0.5s forwards, blink 0.75s step-end infinite;
+            width: 0;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
         }
 
         .hero-name::before {
@@ -248,11 +262,42 @@
         .hero-content {
             padding-left: 40px;
             margin-top: 20px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 2.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-property {
             margin: 8px 0;
             font-size: 18px;
+            opacity: 0;
+            animation: fadeInProperty 0.5s ease forwards;
+        }
+
+        .hero-property:nth-child(1) { animation-delay: 3s; }
+        .hero-property:nth-child(2) { animation-delay: 3.3s; }
+        .hero-property:nth-child(3) { animation-delay: 3.6s; }
+        .hero-property:nth-child(4) { animation-delay: 3.9s; }
+
+        @keyframes fadeInProperty {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .property-key {
@@ -272,6 +317,92 @@
             margin-top: 20px;
             color: var(--text-primary);
             font-size: 36px;
+            opacity: 0;
+            animation: fadeInProperty 0.5s ease 4.2s forwards;
+        }
+
+        /* Typing animation for section titles */
+        .section-title {
+            color: var(--yellow);
+            font-size: 24px;
+            font-weight: normal;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-title.typing::after {
+            content: '|';
+            color: var(--accent);
+            animation: blink 0.75s step-end infinite;
+        }
+
+        /* Code writing animation */
+        @keyframes writeCode {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        /* Animate cards on scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger animation for cards */
+        .experience-card,
+        .skill-card,
+        .project-card,
+        .education-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .experience-card.show,
+        .skill-card.show,
+        .project-card.show,
+        .education-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .experience-card:nth-child(1) { transition-delay: 0.1s; }
+        .experience-card:nth-child(2) { transition-delay: 0.2s; }
+        .experience-card:nth-child(3) { transition-delay: 0.3s; }
+        .experience-card:nth-child(4) { transition-delay: 0.4s; }
+
+        .skill-card:nth-child(1) { transition-delay: 0.1s; }
+        .skill-card:nth-child(2) { transition-delay: 0.15s; }
+        .skill-card:nth-child(3) { transition-delay: 0.2s; }
+        .skill-card:nth-child(4) { transition-delay: 0.25s; }
+        .skill-card:nth-child(5) { transition-delay: 0.3s; }
+        .skill-card:nth-child(6) { transition-delay: 0.35s; }
+
+        .project-card:nth-child(1) { transition-delay: 0.1s; }
+        .project-card:nth-child(2) { transition-delay: 0.2s; }
+        .project-card:nth-child(3) { transition-delay: 0.3s; }
+        .project-card:nth-child(4) { transition-delay: 0.1s; }
+        .project-card:nth-child(5) { transition-delay: 0.2s; }
+        .project-card:nth-child(6) { transition-delay: 0.3s; }
+
+        /* Terminal cursor effect */
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background: var(--accent);
+            margin-left: 5px;
+            animation: blink 1s step-end infinite;
         }
 
         /* About section */
@@ -548,12 +679,13 @@
         .project-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            background: var(--bg-tertiary);
             transition: transform 0.3s;
         }
 
         .project-card:hover .project-image img {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .project-image-placeholder {
@@ -978,14 +1110,11 @@
 
                     <!-- Additional Info -->
                     <div style="margin-top: 20px; padding: 10px; border-top: 1px solid var(--border);">
-                        <a class="file-item" href="#home">
-                            <span class="file-icon" style="color: #6a9955;">📄</span>
-                            <span>CV Completo</span>
-                        </a>
-                        <a class="file-item" href="#home">
-                            <span class="file-icon" style="color: #f1dd3f;">⭐</span>
-                            <span>Proyectos Destacados</span>
-                        </a>
+                <a class="file-item" href="cv/cv.pdf" download="CV_Fermin_Cardenas_Software_Engineer.pdf">
+    <span class="file-icon" style="color: #6a9955;">📄</span>
+    <span>CV Completo</span>
+</a>
+                       
                     </div>
                 </div>
             </div>
@@ -1222,30 +1351,17 @@
                     </div>
 
                     <!-- Upload Instruction -->
-                    <div class="upload-instruction">
-                        <h4>📸 Cómo agregar imágenes a tus proyectos:</h4>
-                        <p style="margin: 10px 0; font-size: 14px; line-height: 1.6;">
-                            1. Haz clic en cualquier imagen de proyecto para verla en tamaño completo<br>
-                            2. Para agregar tus propias imágenes, reemplaza el atributo <code>src=""</code> con la URL de tu imagen<br>
-                            3. Puedes usar servicios como Imgur, Cloudinary o subir a tu propio servidor<br>
-                            4. Ejemplo: <code>&lt;img src="https://tu-url-imagen.com/proyecto1.png" alt="Proyecto"&gt;</code>
-                        </p>
-                    </div>
+               
 
                     <div class="projects-grid">
                         
                         <!-- Project 1: Diabetes Monitoring Platform -->
                         <div class="project-card">
                             <div class="project-image" onclick="openLightbox('diabetes-img')">
-                                <!-- Reemplaza src="" con la URL de tu imagen -->
-                                <div class="project-image-placeholder" id="diabetes-img">
-                                    🏥
-                                    <span>Haz clic para agregar imagen</span>
-                                </div>
-                                <!-- Ejemplo con imagen real (descomenta y agrega tu URL):
-                                <img src="https://tu-url.com/diabetes-monitor.png" alt="Diabetes Monitor Platform">
-                                -->
-                            </div>
+    <img id="diabetes-img" 
+         src="img/Dabetai.png" 
+         alt="Diabetes Monitor Platform">
+</div>
                             <div class="project-content">
                                 <div class="project-header">
                                     <div class="project-title">DiabetesMonitor</div>
@@ -1261,37 +1377,35 @@
                                     <span class="tech-badge">React</span>
                                 </div>
                                 <div class="project-links">
-                                    <a href="#" class="project-link">Ver detalles</a>
-                                    <a href="#" class="project-link">Demo</a>
+                                    <a href="https://github.com/Fermin-Cardenas/dabetai-mobileapp" class="project-link">Ver detalles</a>
+                                    <a href="https://github.com/Fermin-Cardenas/dabetai-mobileapp" class="project-link">Demo</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Project 2: Miscelánea Sales System -->
-                        <div class="project-card">
-                            <div class="project-image" onclick="openLightbox('miscelanea-img')">
-                                <div class="project-image-placeholder" id="miscelanea-img">
-                                    🏪
-                                    <span>Haz clic para agregar imagen</span>
-                                </div>
-                            </div>
+                          <div class="project-card">
+                               <div class="project-image" onclick="openLightbox('LaHormigaWEB-img')">
+    <img id="LaHormigaWEB-img" 
+         src="img/LaHormiga.png" 
+         alt="LaHormigaWEB">
+</div>
                             <div class="project-content">
                                 <div class="project-header">
-                                    <div class="project-title">MiscelaneaERP</div>
-                                    <div class="project-tag">FullStack</div>
+                                    <div class="project-title">LaHormigaWEB</div>
+                                    <div class="project-tag">Web Design</div>
                                 </div>
                                 <p class="project-description">
-                                    Sistema de gestión de ventas para franquicia de tiendas minoristas con módulos de seguridad y control de acceso avanzado.
-                                </p>
+Desarrollo Frontend puro (HTML5, CSS3, JavaScript) de una página web para una empresa de uniformes. Implementado con diseño totalmente responsive para garantizar la visualización y contacto desde cualquier dispositivo móvil o de escritorio.                                </p>
                                 <div class="project-tech">
-                                    <span class="tech-badge">Java</span>
+                                    <span class="tech-badge">HTML5</span>
+                                    <span class="tech-badge">CSS3</span>
                                     <span class="tech-badge">JavaScript</span>
-                                    <span class="tech-badge">MySQL</span>
-                                    <span class="tech-badge">REST API</span>
+                                    <span class="tech-badge">Responsive</span>
                                 </div>
                                 <div class="project-links">
-                                    <a href="#" class="project-link">Ver detalles</a>
-                                    <a href="#" class="project-link">Demo</a>
+                                    <a href="https://github.com/Fermin-Cardenas/LaHormiga-Page" class="project-link">Ver detalles</a>
+                                    <a href="https://github.com/Fermin-Cardenas/LaHormiga-Page" class="project-link">GitHub</a>
                                 </div>
                             </div>
                         </div>
@@ -1299,11 +1413,11 @@
                         <!-- Project 3: Gelamix ERP -->
                         <div class="project-card">
                             <div class="project-image" onclick="openLightbox('gelamix-img')">
-                                <div class="project-image-placeholder" id="gelamix-img">
-                                    🧁
-                                    <span>Haz clic para agregar imagen</span>
-                                </div>
-                            </div>
+    <img id="gelamix-img" 
+         src="img/Gelamix.png" 
+         alt="Gelamix ERP">
+</div>
+
                             <div class="project-content">
                                 <div class="project-header">
                                     <div class="project-title">GelamixERP</div>
@@ -1319,98 +1433,13 @@
                                     <span class="tech-badge">REST API</span>
                                 </div>
                                 <div class="project-links">
-                                    <a href="#" class="project-link">Ver detalles</a>
-                                    <a href="#" class="project-link">Demo</a>
+                                    <a href="https://github.com/Fermin-Cardenas/GelamixERP" class="project-link">Ver detalles</a>
+                                    <a href="https://github.com/Fermin-Cardenas/GelamixERP" class="project-link">Demo</a>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Project 4: Oklans POS -->
-                        <div class="project-card">
-                            <div class="project-image" onclick="openLightbox('oklans-img')">
-                                <div class="project-image-placeholder" id="oklans-img">
-                                    🍔
-                                    <span>Haz clic para agregar imagen</span>
-                                </div>
-                            </div>
-                            <div class="project-content">
-                                <div class="project-header">
-                                    <div class="project-title">OklansPOS</div>
-                                    <div class="project-tag">POS System</div>
-                                </div>
-                                <p class="project-description">
-                                    Sistema integral de punto de venta con gestión de almacén y sistema de fidelización mediante dispositivos NFC para cadena de comida rápida.
-                                </p>
-                                <div class="project-tech">
-                                    <span class="tech-badge">React</span>
-                                    <span class="tech-badge">Java</span>
-                                    <span class="tech-badge">NFC</span>
-                                    <span class="tech-badge">PostgreSQL</span>
-                                </div>
-                                <div class="project-links">
-                                    <a href="#" class="project-link">Ver detalles</a>
-                                    <a href="#" class="project-link">Demo</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project 5: Portfolio Template -->
-                        <div class="project-card">
-                            <div class="project-image" onclick="openLightbox('portfolio-img')">
-                                <div class="project-image-placeholder" id="portfolio-img">
-                                    💻
-                                    <span>Haz clic para agregar imagen</span>
-                                </div>
-                            </div>
-                            <div class="project-content">
-                                <div class="project-header">
-                                    <div class="project-title">DevPortfolio</div>
-                                    <div class="project-tag">Web Design</div>
-                                </div>
-                                <p class="project-description">
-                                    Portafolio profesional con diseño inspirado en IDEs modernos, responsive y optimizado para desarrolladores.
-                                </p>
-                                <div class="project-tech">
-                                    <span class="tech-badge">HTML5</span>
-                                    <span class="tech-badge">CSS3</span>
-                                    <span class="tech-badge">JavaScript</span>
-                                    <span class="tech-badge">Responsive</span>
-                                </div>
-                                <div class="project-links">
-                                    <a href="#" class="project-link">Ver detalles</a>
-                                    <a href="#" class="project-link">GitHub</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project 6: Open Source Contribution -->
-                        <div class="project-card">
-                            <div class="project-image" onclick="openLightbox('opensource-img')">
-                                <div class="project-image-placeholder" id="opensource-img">
-                                    🔧
-                                    <span>Haz clic para agregar imagen</span>
-                                </div>
-                            </div>
-                            <div class="project-content">
-                                <div class="project-header">
-                                    <div class="project-title">OpenSource</div>
-                                    <div class="project-tag">Community</div>
-                                </div>
-                                <p class="project-description">
-                                    Contribuciones a proyectos de código abierto y desarrollo de herramientas de automatización y productividad.
-                                </p>
-                                <div class="project-tech">
-                                    <span class="tech-badge">Python</span>
-                                    <span class="tech-badge">Automation</span>
-                                    <span class="tech-badge">Git</span>
-                                    <span class="tech-badge">CLI Tools</span>
-                                </div>
-                                <div class="project-links">
-                                    <a href="#" class="project-link">Ver repositorios</a>
-                                    <a href="#" class="project-link">GitHub</a>
-                                </div>
-                            </div>
-                        </div>
+                       
 
                     </div>
                 </section>
@@ -1552,6 +1581,70 @@
                 closeLightbox();
             }
         });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.experience-card, .skill-card, .project-card, .education-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Typing effect for section titles
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.textContent = '';
+            element.classList.add('typing');
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    setTimeout(() => {
+                        element.classList.remove('typing');
+                    }, 500);
+                }
+            }
+            type();
+        }
+
+        // Observe section titles for typing animation
+        const titleObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.typed) {
+                    const text = entry.target.textContent;
+                    entry.target.dataset.typed = 'true';
+                    setTimeout(() => {
+                        typeWriter(entry.target, text, 80);
+                    }, 200);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.section-title').forEach(title => {
+            titleObserver.observe(title);
+        });
+
+        // Add terminal cursor to active file
+        const activeFile = document.querySelector('.file-item.active span:last-child');
+        if (activeFile) {
+            const cursor = document.createElement('span');
+            cursor.className = 'terminal-cursor';
+            cursor.style.display = 'none'; // Initially hidden
+        }
     </script>
 </body>
 </html>
